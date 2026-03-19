@@ -8,7 +8,8 @@ Simple app to simulate locations from Xcode via GPX files.
 2. Connect your iPhone
 3. Run the app from Xcode
 4. Go to **Debug > Simulate Location** and select a GPX file
-🎊. Your iPhone now reports to be in that location
+
+Your iPhone now reports to be in that location 🎊
 
 ## Create a Custom GPX
 
