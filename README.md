@@ -7,13 +7,15 @@ Simple app to simulate locations from Xcode via GPX files.
 - iOS 16.6+
 - Xcode 14+
 - Device connected to Xcode (required to spoof location)
+- Developer Account (free)
 
 ## How to Use
 
 1. Open the project in Xcode
 2. Connect your iPhone
 3. Run the app from Xcode
-4. Go to **Debug > Simulate Location** and select a GPX file
+4. (first time) Trust your developer certificate and accept location permissions
+5. Go to **Debug > Simulate Location** and select a GPX file
 
 Your iPhone now reports to be in that location 🎊
 

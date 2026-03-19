@@ -9,12 +9,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
 
     override init() {
-        self.authorizationStatus = CLLocationManager().authorizationStatus
+        self.authorizationStatus = .notDetermined
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
     }
 
     // MARK: - CLLocationManagerDelegate
@@ -29,5 +28,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
+        if manager.authorizationStatus == .authorizedWhenInUse ||
+           manager.authorizationStatus == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
     }
 }
