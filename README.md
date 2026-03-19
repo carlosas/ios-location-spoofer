@@ -2,6 +2,12 @@
 
 Simple app to simulate locations from Xcode via GPX files.
 
+## Requirements
+
+- iOS 16.6+
+- Xcode 14+
+- Device connected to Xcode (required to spoof location)
+
 ## How to Use
 
 1. Open the project in Xcode
@@ -21,9 +27,3 @@ Your iPhone now reports to be in that location 🎊
     </wpt>
 </gpx>
 ```
-
-## Requirements
-
-- iOS 16.6+
-- Xcode 14+
-- Device connected to Xcode (required to spoof location)
