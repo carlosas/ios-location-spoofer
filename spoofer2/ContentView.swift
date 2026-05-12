@@ -1,52 +1,46 @@
 import SwiftUI
 import CoreLocation
+import MapKit
 
 struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    )
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                Image(systemName: "location.circle.fill")
-                    .font(.system(size: 80))
-                    .foregroundColor(.blue)
-
-                Text("Location Spoofer")
-                    .font(.title)
-                    .fontWeight(.bold)
+            VStack(spacing: 12) {
+                Map(coordinateRegion: $region, showsUserLocation: true)
+                    .cornerRadius(12)
+                    .onChange(of: locationManager.currentLocation) { newLocation in
+                        if let coordinate = newLocation?.coordinate {
+                            region.center = coordinate
+                        }
+                    }
 
                 if let location = locationManager.currentLocation {
-                    VStack(spacing: 10) {
-                        Text("Current Location:")
+                    VStack(spacing: 6) {
+                        Text("Current Location")
                             .font(.headline)
 
-                        Text("Latitude: \(location.coordinate.latitude, specifier: "%.6f")")
+                        Text("Lat: \(location.coordinate.latitude, specifier: "%.6f")")
                             .font(.body)
+                            .monospacedDigit()
 
-                        Text("Longitude: \(location.coordinate.longitude, specifier: "%.6f")")
+                        Text("Lon: \(location.coordinate.longitude, specifier: "%.6f")")
                             .font(.body)
+                            .monospacedDigit()
                     }
-                    .padding()
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 16)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                 } else {
                     Text("Waiting for location...")
                         .foregroundColor(.gray)
                 }
-
-                Spacer()
-
-                VStack(spacing: 15) {
-                    Text("To simulate locations:")
-                        .font(.headline)
-
-                    Text("1. Run the app from Xcode")
-                    Text("2. Go to Debug > Simulate Location")
-                    Text("3. Select a GPX file or location")
-                }
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .padding()
             }
             .padding()
             .navigationTitle("GPS Spoofer")
